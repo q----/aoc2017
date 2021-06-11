@@ -3,15 +3,21 @@
 using namespace std;
 
 struct c{
-  int x;
-  int y;
+  int x = 0;
+  int y = 0;
+  int c = 1;
 };
 
 int abs(int a){
   return (a < 0)? -a: a;
 }
 
+const int operator!(c& a){
+  return abs(a.x) + abs(a.y);
+}
+
 c operator++(c& a, int){
+  a.c++;
   if(abs(a.x) > abs(a.y)){
     if(a.x < 0){
       a.y--;
@@ -25,7 +31,7 @@ c operator++(c& a, int){
       a.x--;
     }
   } else {
-    if( a.x > 0 && a.y < 0) a.x++;
+    if( a.x >= 0 && a.y <= 0) a.x++;
     else if(a.x > 0 && a.y > 0) a.x--;
     else if(a.x < 0 && a.y < 0) a.x++;
     else if(a.x < 0 && a.y > 0) a.y--;
@@ -37,34 +43,10 @@ c operator++(c& a, int){
 int main(){
   int goal = 361527;
 
-  int i;
-  for(i = 0; ((2*i)-1)*((2*i)-1) <= goal; i--);
+  c a;
+
+  for(a; a.c < goal; a++);
   
-  int x = -i;
-  int y = i;
-  i = (2*i)-1;
-  i *= i;
-
-  while(x > y && i > goal){
-    x--;
-    i--;
-  }
-
-  while(y < -x && i > goal){
-    y++;
-    i--;
-  }
-
-  while(x < y && i > goal){
-    x++;
-    i--;
-  }
-
-  while(y > -x && i > goal){
-    y--;
-    i--;
-  }
-  
-  cout << abs(x) + abs(y) << endl;
+  cout << !a << endl;
   return 0;
 }
