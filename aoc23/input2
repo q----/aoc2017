@@ -1,0 +1,9 @@
+set b 106500
+set c 123500
+set f 1
+set d 3
+
+set e 53250
+
+for(b; b < c; b += 17)
+  if !b.is_prime() h++;
